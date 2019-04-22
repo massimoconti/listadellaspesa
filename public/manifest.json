@@ -1,0 +1,23 @@
+{
+  "short_name": "Lista della spesa",
+  "name": "Lista della spesa",
+  "lang": "it-IT",
+  "icons": [
+    {
+      "src": "img/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "img/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#01a3e1",
+  "theme_color": "#0C7DAF",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/"
+}
