@@ -14,10 +14,10 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/",
+  "start_url": "/listaspesa/",
   "background_color": "#01a3e1",
   "theme_color": "#0C7DAF",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": "/"
+  "scope": "/listaspesa/"
 }

@@ -1,5 +1,7 @@
 module.exports = {
-  publicPath: '/',
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/listaspesa/'
+    : '/',
   // ...other vue-cli plugin options...
   pwa: {
     name: 'Lista della Spesa',
