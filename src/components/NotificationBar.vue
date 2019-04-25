@@ -1,7 +1,7 @@
 <template>
   <transition name="notifications">
-    <div class="notifications" v-if="msg">
-      <p>{{ msg }}</p>
+    <div class="notifications body-1" v-if="msg">
+      {{ msg }}
     </div>
   </transition>
 </template>
@@ -43,7 +43,6 @@ export default {
   border-radius: 0.3rem;
   padding: 0.4rem;
   color: #fff;
-  font-size: 0.8rem;
   box-sizing: border-box;
   left: 10px;
   right: 10px;

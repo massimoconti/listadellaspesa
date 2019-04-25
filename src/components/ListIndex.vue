@@ -1,20 +1,25 @@
 <template>
-  <div>
-    <ul v-if="lists.length">
-      <li v-for="(list, index) in lists">
-        <router-link :to="{ name: 'list_detail', params: { id: index } }">
-          {{ list.name || '[senza nome]' }}
-        </router-link>
-        <br><small>{{ list.items.length }} {{ list.items.length==1 ? 'articolo' : 'articoli' }}</small>
-      </li>
-    </ul>
-    <div v-else>
-      <p class="emptylist-msg">
-        Nessuna lista presente
-      </p>
-      <p>Crea ora una nuova lista</p>
-    </div>
-  </div>
+  <v-container fluid grid-list-lg>
+    <v-layout row wrap v-if="lists.length" >
+
+     <v-flex xs12 v-for="(list, index) in lists">
+       <v-card color="blue lighten-2" class="white--text" :to="{ name: 'list_detail', params: { id: index } }">
+         <v-card-title primary-title>
+           <div>
+             <div class="headline font-weight-bold">{{ list.name || '[senza nome]' }}</div>
+             <span>{{ list.items.length }} {{ list.items.length==1 ? 'articolo' : 'articoli' }}</span>
+           </div>
+         </v-card-title>
+       </v-card>
+     </v-flex>
+   </v-layout>
+
+   <div v-else>
+     <p class="text-xs-center mt-3">
+       Nessuna lista presente
+     </p>
+   </div>
+ </v-container>
 </template>
 
 <script>
@@ -37,36 +42,3 @@ export default {
   }),
 }
 </script>
-
-<style scoped>
-li {
-  display:block;
-  background: #fff;
-  border-radius: 0.3rem;
-  margin-bottom: 1rem;
-  padding:0.5rem;
-  box-shadow:0 0 0 0.2rem rgba(0,123,255,.25);
-}
-
-li a {
-  font-weight: 500;
-  text-decoration: none;
-  color:#333;
-  font-size:1.1rem;
-}
-
-li small {
-  color:#666;
-  font-size:.9rem;
-}
-
-.emptylist-msg {
-  display: block;
-  width: 100%;
-  font-size: 1.3rem;
-  font-weight: 500;
-  text-align: center;
-  color: rgb(236, 242, 245);
-  /* text-shadow: 1px 1px 1px #4E342E; */
-}
-</style>

@@ -1,9 +1,15 @@
 <template>
-  <div>
-    <label>Crea una nuova lista</label><br>
-    <input type="text" name="name" v-model="name" @keyup.enter="createList" autofocus>
-    <button @click="createList">Salva</button>
-</div>
+  <v-form v-model="valid" class="mt-3">
+    <v-text-field
+      v-model="name"
+      :counter="50"
+      :rules="nameRules"
+      label="Nuova lista della spesa"
+      required
+      @keyup.enter="createList"
+      autofocus
+    ></v-text-field>
+  </v-form>
 </template>
 
 <script>
@@ -18,11 +24,18 @@ export default {
   },
   data: function(){
     return {
-      name: ''
+      valid: false,
+      name: '',
+      nameRules: [
+        v => !!v || 'Inserire il nome'
+      ],
     }
   },
   methods: {
     createList: function(){
+      if (!this.valid)
+        return;
+
       this.$store.commit({
         type: 'createList',
         name: this.name
@@ -35,32 +48,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-label {
-  font-size: 1.1rem;
-  color:#fff;
-}
-input {
-  margin-right: 1%;
-  padding:0.5rem;
-  border-radius: .25rem;
-  background: #fff;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  width:75%;
-  display: inline-block;
-  font: 300 1rem Roboto, sans-serif;
-  vertical-align: middle;
-  resize: none;
-  outline: 0;
-}
-button {
-  width:19%;
-  padding:0.42rem;
-  background: #479047;
-  border-bottom: 1px solid #ced4da;
-  border-radius: .25rem;
-  font: 500 1rem Roboto, sans-serif;
-  color:#fff
-}
-</style>

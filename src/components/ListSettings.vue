@@ -1,12 +1,21 @@
 <template>
-  <div id="settings">
-    <label>Rinomina questa lista</label><br>
-    <input type="text" name="name" v-model="input_list_name" @keyup.enter="updateList" autofocus>
-    <button @click="updateList">Salva</button>
+  <div>
+    <v-form v-model="valid" class="mt-3">
+      <v-text-field
+        v-model="name"
+        :counter="50"
+        :rules="nameRules"
+        label="Rinomina questa lista"
+        required
+        @keyup.enter="updateList"
+      ></v-text-field>
+    </v-form>
 
-    <br><br><br>
-    <p>Elimina questa lista:</p>
-    <button class="delete" @click="deleteList">Elimina</button>
+    <p class="subheading mt-5">Elimina questa lista:</p>
+    <v-btn color="error" :ripple="true" @click="deleteList">
+      <v-icon>delete</v-icon>
+      Elimina
+    </v-btn>
   </div>
 </template>
 
@@ -15,7 +24,7 @@
 export default {
   name: 'list-settings',
   created: function(){
-    this.input_list_name = this.list_name;
+    this.name = this.list_name;
 
     this.$store.commit({
       type: 'updateTitle',
@@ -24,7 +33,11 @@ export default {
   },
   data: function(){
     return {
-      input_list_name: null
+      valid: false,
+      name: '',
+      nameRules: [
+        v => !!v || 'Inserire il nome'
+      ],
     }
   },
   computed: {
@@ -40,10 +53,13 @@ export default {
   },
   methods: {
     updateList: function(){
+      if (!this.valid)
+        return;
+
       this.$store.commit({
         type: 'updateListName',
         id: this.id,
-        name: this.input_list_name
+        name: this.name
       });
 
       this.$router.push({ name: 'list_detail', params: { id: this.id } });
@@ -67,44 +83,5 @@ export default {
 }
 </script>
 
-<style scoped>
-#settings {
-  background: #fff;
-  border-radius: 5px;
-  padding: 0.4rem;
-}
-p, label {
-  margin-bottom: .3rem;
-  font-size: .7rem;
-  font-weight: 400;
-  color:#333;
-  text-transform: uppercase;
-}
-input {
-  display: block;
-  margin-bottom: 1.4rem;
-  border-bottom:1px solid #ccc;
-  padding:0.4rem;
-  width:95%;
-  font: 300 1.2rem Roboto, sans-serif;
-  vertical-align: middle;
-  resize: none;
-  outline: 0;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-input:focus {
-  border-bottom-color: blue;
-}
-button {
-  width:19%;
-  padding:0.42rem;
-  background: #479047;
-  border-bottom: 1px solid #ced4da;
-  border-radius: .25rem;
-  font: 500 1rem Roboto, sans-serif;
-  color:#fff
-}
-button.delete {
-  background:red
-}
+<style>
 </style>

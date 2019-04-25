@@ -2,7 +2,6 @@
   <div class="modal-overlay" :class="{active: open}" @click="closeModal">
     <div class="modal">
       <div class="modal-content">
-        <span class="close" @click="closeModal">&times;</span>
         <slot></slot>
       </div>
     </div>
@@ -80,24 +79,5 @@ export default {
 
 .modal-description {
   font-size:0.9rem;
-}
-
-/* The Close Button */
-.close {
-  display:inline-block;
-  position: absolute;
-  top:1rem;
-  right:1rem;
-  margin-top: -0.5rem;
-  color: #aaa;
-  font-size: 1.5rem;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
 }
 </style>
