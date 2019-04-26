@@ -1,12 +1,11 @@
 <template>
-  <v-form v-model="valid" class="mt-3">
+  <v-form v-model="valid" class="mt-3" @submit.prevent="createList">
     <v-text-field
       v-model="name"
       :counter="50"
       :rules="nameRules"
       label="Nuova lista della spesa"
       required
-      @keyup.enter="createList"
       autofocus
     ></v-text-field>
   </v-form>

@@ -1,13 +1,12 @@
 <template>
   <div>
-    <v-form v-model="valid" class="mt-3">
+    <v-form v-model="valid" class="mt-3" @submit.prevent="updateList">
       <v-text-field
         v-model="name"
         :counter="50"
         :rules="nameRules"
         label="Rinomina questa lista"
         required
-        @keyup.enter="updateList"
       ></v-text-field>
     </v-form>
 
