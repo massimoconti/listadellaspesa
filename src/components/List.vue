@@ -26,7 +26,7 @@
         <transition-group appear name="listanim">
           <v-list-tile v-for="(item, index) in list_items" v-bind:key="index">
             <v-list-tile-action>
-              <v-checkbox v-model="item.taken" color="grey"  @click.prevent.stop="toggleItemTaken(index)" />
+              <v-checkbox v-model="item.taken" color="grey"  @click.prevent.stop="toggleItemTaken(index)" :hide-details="true" />
             </v-list-tile-action>
 
             <v-list-tile-content @click.stops="toggleItemTaken(index)">
