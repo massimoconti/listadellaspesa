@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <v-textarea
        solo
        no-resize
@@ -25,12 +24,12 @@
     <v-list v-if="list_items.length" class="elevation-2">
       <vuedraggable v-model="list_items" handle=".drag-handle">
         <transition-group appear name="listanim">
-          <v-list-tile @click.stops="toggleItemTaken(index)" v-for="(item, index) in list_items" v-bind:key="index">
+          <v-list-tile v-for="(item, index) in list_items" v-bind:key="index">
             <v-list-tile-action>
-              <v-checkbox v-model="item.taken" color="grey" />
+              <v-checkbox v-model="item.taken" color="grey"  @click.prevent.stop="toggleItemTaken(index)" />
             </v-list-tile-action>
 
-            <v-list-tile-content>
+            <v-list-tile-content @click.stops="toggleItemTaken(index)">
               <v-list-tile-title :class="{ taken: item.taken, 'grey--text': item.taken }">
                 {{ item.name }}
               </v-list-tile-title>
@@ -76,6 +75,7 @@
       <div id="mic-icon" v-if="isVoiceRecognitionActive"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg></div>
       <div class="modal-title">{{ mic_status }}</div>
       <div class="modal-description">{{ mic_substatus }}</div>
+      <v-btn v-if="mic_btn">{{ mic_btn }}</v-btn>
     </ModalWin>
   </div>
 </template>
@@ -123,6 +123,7 @@ export default {
       mic_modal_open: false,
       mic_status: '',
       mic_substatus: '',
+      mic_btn: '',
     }
   },
   computed: {
@@ -227,6 +228,11 @@ export default {
 
       this.dispatchNotification('Articolo \''+ name + '\' eliminato');
     },
+    setMicStatus:function(status, substatus, btn){
+      this.mic_status = status;
+      this.mic_substatus = substatus;
+      this.mic_btn = btn;
+    },
     voiceRecognitionStart: function(){
       // TODO autostop afeter 4 seconds of no input
       if (!this.voice_recognition)
@@ -235,8 +241,7 @@ export default {
       this.mic_modal_open = true;
 
       if (!this.isVoiceRecognitionActive){
-        this.mic_status = 'Sei offline';
-        this.mic_substatus = 'Collegati ad internet per utilizzare la funzione vocale';
+        this.setMicStatus('Sei offline', 'Collegati ad internet per utilizzare la funzione vocale');
         return;
       }
 
@@ -247,26 +252,21 @@ export default {
 
       this.voice_recognition.onstart = function(){
         final_transcript = ''
-        this.mic_status = 'Parla ora al microfono';
-        this.mic_substatus = 'Termina';
+        this.setMicStatus('Parla ora al microfono', '', 'Termina');
       }.bind(this);
 
       this.voice_recognition.onerror = function(event) {
         if (event.error == 'no-speech') {
-          this.mic_status = 'No speech was detected';
-          this.mic_substatus = 'You may need to adjust your microphone settings';
+          this.setMicStatus('No speech was detected', 'You may need to adjust your microphone settings');
         }
         if (event.error == 'audio-capture') {
-          this.mic_status = 'No microphone was found';
-          this.mic_substatus = 'Ensure that a microphone is installed and that microphone settings are configured correctly';
+          this.setMicStatus('No microphone was found', 'Ensure that a microphone is installed and that microphone settings are configured correctly');
         }
         if (event.error == 'not-allowed') {
-          this.mic_substatus = '';
-
           if (event.timeStamp - start_timestamp < 100) {
-            this.mic_status = 'Permission to use microphone is blocked';
+            this.setMicStatus('Permission to use microphone is blocked');
           } else {
-            this.mic_status = 'Permission to use microphone was denied';
+            this.setMicStatus('Permission to use microphone was denied');
           }
         }
       }.bind(this);
@@ -283,8 +283,7 @@ export default {
         if (typeof(event.results) == 'undefined') {
           this.voice_recognition.onend = null;
           this.voice_recognition.stop();
-          this.mic_status = 'Funzionalità non supportata';
-          this.mic_substatus = '';
+          this.setMicStatus('Funzionalità non supportata');
           return;
         }
 
