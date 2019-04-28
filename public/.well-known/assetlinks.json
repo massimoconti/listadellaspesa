@@ -1,6 +1,0 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target" : { "namespace": "android_app", "package_name": "com.massimoconti.listadellaspesa",
-               "sha256_cert_fingerprints": ["FD:EF:52:47:1F:30:C3:8F:9B:A1:81:74:13:2D:8F:DB:B7:A2:90:D1:F0:6E:EF:30:ED:DF:2C:F6:A4:23:65:5B"] }
-}]
-
