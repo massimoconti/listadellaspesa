@@ -7,6 +7,7 @@ import store from './store.js'
 import OnlineIndicator from './online.js'
 // component
 import App from './App.vue'
+import NotFound from './components/NotFound.vue'
 import ListIndex from './components/ListIndex.vue'
 import ListNew from './components/ListNew.vue'
 import ListSettings from './components/ListSettings.vue'
@@ -29,6 +30,7 @@ const router = new VueRouter({
     { name: 'list_new', path: '/list/new', component: ListNew },
     { name: 'list_settings', path: '/list/settings/:id', component: ListSettings },
     { name: 'list_detail', path: '/list/:id', components: { default: List, header_icons: ListContextMenu } },
+    { name: 'not-found', path: '*', component: NotFound },
   ]
 });
 router.beforeEach(function(from, to, next){

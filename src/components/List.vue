@@ -372,7 +372,7 @@ export default {
 }
 
 .emptylist-tip p {
-  background: #0694cc;
+  background: #2196f3;
   padding:0.5rem;
   border-radius: 0.4rem;
   color: #ddd;
