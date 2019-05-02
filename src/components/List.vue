@@ -29,7 +29,7 @@
               <v-checkbox v-model="item.taken" color="grey"  @click.prevent.stop="toggleItemTaken(index)" :hide-details="true" />
             </v-list-tile-action>
 
-            <v-list-tile-content @click.stops="toggleItemTaken(index)">
+            <v-list-tile-content @click.stop="toggleItemTaken(index)">
               <v-list-tile-title :class="{ taken: item.taken, 'grey--text': item.taken }">
                 {{ item.name }}
               </v-list-tile-title>
@@ -65,7 +65,7 @@
 
       <div class="modal-title">{{ $t('list_completed') }}</div>
       <div class="modal-description">
-        <v-btn color="info" @click="">{{ $t('close') }}</v-btn>
+        <v-btn color="info" @click="(function(){})">{{ $t('close') }}</v-btn>
         <v-btn color="info" @click="clearItems">{{ $t('list_clear') }}</v-btn>
       </div>
     </ModalWin>
@@ -84,13 +84,13 @@ import vuedraggable from 'vuedraggable'
 import ModalWin from './ModalWin.vue'
 import SuccessIconAnimated from './SuccessIconAnimated.vue'
 
+var recognition = null;
+
 if ('webkitSpeechRecognition' in window){
-  var recognition = new webkitSpeechRecognition();
+  recognition = new webkitSpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = false;
   recognition.lang = 'it-IT';
-} else {
-  var recognition = null;
 }
 
 function updatedComponent(){

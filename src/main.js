@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // plugins
-import OnlineIndicator from '@/plugins/online'
-import Vuetify from '@/plugins/vuetify'
+import {} from '@/plugins/online'
+import {} from '@/plugins/vuetify'
 import i18n from '@/plugins/i18n';
 import store from '@/plugins/store.js'
 

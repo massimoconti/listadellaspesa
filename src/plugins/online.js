@@ -8,11 +8,11 @@ const OnlineIndicator = {
       }
     });
 
-    window.addEventListener('online', function handleOnline(e) {
+    window.addEventListener('online', function handleOnline() {
       vm.$data.online = true;
     });
 
-    window.addEventListener('offline', function handleOffline(e) {
+    window.addEventListener('offline', function handleOffline() {
       vm.$data.online = false;
     });
 
