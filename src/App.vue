@@ -27,7 +27,7 @@
           </v-list-tile-avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title class="title">Lista della spesa</v-list-tile-title>
+            <v-list-tile-title class="title">{{ $t('name') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -49,9 +49,8 @@
 
           <v-list-tile-content>
             <v-list-tile-title>{{ list.name || '[senza nome]' }}</v-list-tile-title>
-            <v-list-tile-sub-title>{{ list.items.length }} {{ list.items.length==1 ? 'articolo' : 'articoli' }}</v-list-tile-sub-title>
+            <v-list-tile-sub-title>{{ $tc('list_num_items', list.items.length) }}</v-list-tile-sub-title>
           </v-list-tile-content>
-
         </v-list-tile>
 
         <v-divider class="mt-3" :inset="true" v-if="lists.length"></v-divider>
@@ -66,7 +65,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>Crea nuova lista</v-list-tile-title>
+            <v-list-tile-title>{{ $t('list_create') }}</v-list-tile-title>
           </v-list-tile-content>
 
         </v-list-tile>

@@ -1,4 +1,6 @@
-const plugin = {
+import Vue from 'vue'
+
+const OnlineIndicator = {
   install (Vue, options = {}) {
     const vm = new Vue({
       data: {
@@ -24,4 +26,5 @@ const plugin = {
   }
 };
 
-export default plugin
+
+Vue.use(OnlineIndicator);

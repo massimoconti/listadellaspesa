@@ -12,15 +12,15 @@
     </template>
     <v-list>
       <v-list-tile :to="{ name: 'list_settings', params: { id: id } }">
-        <v-list-tile-title>Impostazioni lista</v-list-tile-title>
+        <v-list-tile-title>{{ $t('list_settings') }}</v-list-tile-title>
       </v-list-tile>
 
       <v-list-tile @click="setListAction('elimina')" :disabled="!listHasItems">
-        <v-list-tile-title>Elimina articoli</v-list-tile-title>
+        <v-list-tile-title>{{ $t('list_deletion') }}</v-list-tile-title>
       </v-list-tile>
 
       <v-list-tile @click="setListAction('riordina')" :disabled="!listHasItems">
-        <v-list-tile-title>Riordina articoli</v-list-tile-title>
+        <v-list-tile-title>{{ $t('list_rearrenge') }}</v-list-tile-title>
       </v-list-tile>
     </v-list>
   </v-menu>

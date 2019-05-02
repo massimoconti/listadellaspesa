@@ -5,15 +5,15 @@
         v-model="name"
         :counter="50"
         :rules="nameRules"
-        label="Rinomina questa lista"
+        :label="$t('list_rename')"
         required
       ></v-text-field>
     </v-form>
 
-    <p class="subheading mt-5">Elimina questa lista:</p>
+    <p class="subheading mt-5">{{ $t('list_delete') }}</p>
     <v-btn color="error" :ripple="true" @click="deleteList">
       <v-icon>delete</v-icon>
-      Elimina
+      {{ $t('delete') }}
     </v-btn>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
 
     this.$store.commit({
       type: 'updateTitle',
-      title: 'Modifica ' + this.list.name
+      title: this.$t('list_settings')
     });
   },
   data: function(){
@@ -35,7 +35,7 @@ export default {
       valid: false,
       name: '',
       nameRules: [
-        v => !!v || 'Inserire il nome'
+        v => !!v || this.$t('list_insert_name')
       ],
     }
   },
@@ -73,7 +73,7 @@ export default {
 
       this.$store.commit({
         type: 'notify',
-        notification: 'Lista \''+ name +'\' eliminata'
+        notification: this.$t('list_delete_notify', [name])
       });
 
       this.$router.push({ name: 'list_index' });
@@ -81,6 +81,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>

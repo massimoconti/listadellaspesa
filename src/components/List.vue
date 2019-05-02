@@ -5,7 +5,7 @@
        no-resize
        single-line
        background-color="#ffffff"
-       label="Aggiungi alla lista della spesa"
+       :label="this.$t('list_add')"
        rows="1"
        v-model="new_entry"
        @keyup.enter="addNewEntry"
@@ -47,27 +47,26 @@
     </v-list>
 
     <div id="emptylist-container" v-if="!list_items.length" class="body-1">
-      <p class="text-xs-center title grey--text text--darken-1 mt-5">Niente da comprare</p>
+      <p class="text-xs-center title grey--text text--darken-1 mt-5">{{ $t('list_empty') }}</p>
 
       <div class="emptylist-tip emptylist-text">
         <img src="../assets/arrow.svg" alt="">
-        <p>Inserisci nuovi articoli digitandoli...</p>
+        <p>{{ $t('list_tip_write') }}</p>
       </div>
 
       <div class="emptylist-tip emptylist-voice" v-if="voice_recognition">
         <img src="../assets/arrow.svg" alt="">
-        <p>...oppure aggiungili a voce<br>
-          separandoli fra loro con "e"</p>
+        <p>{{ $t('list_tip_speak') }}</p>
       </div>
     </div>
 
     <ModalWin v-bind:open.sync="celebrate_modal_open">
       <SuccessIconAnimated />
 
-      <div class="modal-title">Hai completato la spesa!</div>
+      <div class="modal-title">{{ $t('list_completed') }}</div>
       <div class="modal-description">
-        <v-btn color="info" @click="">Chiudi</v-btn>
-        <v-btn color="info" @click="clearItems">Svuota la lista</v-btn>
+        <v-btn color="info" @click="">{{ $t('close') }}</v-btn>
+        <v-btn color="info" @click="clearItems">{{ $t('list_clear') }}</v-btn>
       </div>
     </ModalWin>
 
@@ -175,7 +174,9 @@ export default {
       });
     },
     addItems: function(voices){
-      var entries = voices.split(/\n|\se\s/).filter(function(voice){ return !!voice });
+      var vocal_separator = this.$t('list_vocal_separator');
+      var regexp = new RegExp("\n|\\s"+ vocal_separator +"\\s");
+      var entries = voices.split(regexp).filter(function(voice){ return !!voice });
 
       entries.forEach(function(item){
         this.$store.commit({
@@ -186,11 +187,11 @@ export default {
       }.bind(this));
 
       if (0 === entries.length)
-        this.dispatchNotification('Nessun articolo aggiunto');
+        this.dispatchNotification(this.$t('list_added_none'));
       else if (1 === entries.length)
-        this.dispatchNotification('Nuovo articolo \''+ entries[0] +'\' aggiunto');
+        this.dispatchNotification(this.$t('list_added_one', [ entries[0] ]));
       else
-        this.dispatchNotification(entries.length + ' articoli aggiunti');
+        this.dispatchNotification(this.$t('list_added_multi', [ entries.length ]));
     },
     onPaste: function(){
       setTimeout(function(){
@@ -226,12 +227,12 @@ export default {
         item_key: item_key
       });
 
-      this.dispatchNotification('Articolo \''+ name + '\' eliminato');
+      this.dispatchNotification(this.$t('list_item_deleted', [ name ]));
     },
-    setMicStatus:function(status, substatus, btn){
-      this.mic_status = status;
-      this.mic_substatus = substatus;
-      this.mic_btn = btn;
+    setMicStatus:function(t_status, t_substatus, t_btn){
+      this.mic_status = t_status ? this.$t(t_status) : '';
+      this.mic_substatus = t_substatus ? this.$t(t_substatus) : '';
+      this.mic_btn = t_btn ? this.$t(t_btn) : '';
     },
     voiceRecognitionStart: function(){
       // TODO autostop afeter 4 seconds of no input
@@ -241,7 +242,7 @@ export default {
       this.mic_modal_open = true;
 
       if (!this.isVoiceRecognitionActive){
-        this.setMicStatus('Sei offline', 'Collegati ad internet per utilizzare la funzione vocale');
+        this.setMicStatus('mic_offline', 'mic_offline_tip');
         return;
       }
 
@@ -252,21 +253,21 @@ export default {
 
       this.voice_recognition.onstart = function(){
         final_transcript = ''
-        this.setMicStatus('Parla ora al microfono', '', 'Termina');
+        this.setMicStatus('mic_speak', '', 'mic_terminate');
       }.bind(this);
 
       this.voice_recognition.onerror = function(event) {
-        if (event.error == 'no-speech') {
-          this.setMicStatus('No speech was detected', 'You may need to adjust your microphone settings');
-        }
-        if (event.error == 'audio-capture') {
-          this.setMicStatus('No microphone was found', 'Ensure that a microphone is installed and that microphone settings are configured correctly');
-        }
+        if (event.error == 'no-speech')
+          this.setMicStatus('mic_no_speech', 'mic_no_speech_tip');
+
+        if (event.error == 'audio-capture')
+          this.setMicStatus('mic_not_found', 'mic_not_found_tip');
+
         if (event.error == 'not-allowed') {
           if (event.timeStamp - start_timestamp < 100) {
-            this.setMicStatus('Permission to use microphone is blocked');
+            this.setMicStatus('mic_blocked');
           } else {
-            this.setMicStatus('Permission to use microphone was denied');
+            this.setMicStatus('mic_denied');
           }
         }
       }.bind(this);
@@ -283,7 +284,7 @@ export default {
         if (typeof(event.results) == 'undefined') {
           this.voice_recognition.onend = null;
           this.voice_recognition.stop();
-          this.setMicStatus('Funzionalità non supportata');
+          this.setMicStatus('mic_unsupported');
           return;
         }
 

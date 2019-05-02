@@ -6,8 +6,8 @@
        <v-card color="blue lighten-2" class="white--text" :to="{ name: 'list_detail', params: { id: index } }">
          <v-card-title primary-title>
            <div>
-             <div class="headline font-weight-bold">{{ list.name || '[senza nome]' }}</div>
-             <span>{{ list.items.length }} {{ list.items.length==1 ? 'articolo' : 'articoli' }}</span>
+             <div class="headline font-weight-bold">{{ list.name || $('list_no_name') }}</div>
+             <span>{{ $tc('list_num_items', list.items.length) }}</span>
            </div>
          </v-card-title>
        </v-card>
@@ -15,9 +15,7 @@
    </v-layout>
 
    <div v-else>
-     <p class="text-xs-center mt-3">
-       Nessuna lista presente
-     </p>
+     <p class="text-xs-center mt-3">{{ $t('no_lists') }}</p>
    </div>
  </v-container>
 </template>
@@ -31,10 +29,12 @@ export default {
     if (1 === this.lists.length){
       var first_id = Object.keys(this.lists)[0];
       this.$router.push({ name: 'list_detail', params: { id: first_id } });
+      return;
     }
+    
     this.$store.commit({
       type: 'updateTitle',
-      title: 'Le tue liste'
+      title: this.$t('list_index_title')
     });
   },
   computed: mapState({

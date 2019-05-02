@@ -4,7 +4,7 @@
       v-model="name"
       :counter="50"
       :rules="nameRules"
-      label="Nuova lista della spesa"
+      :label="this.$t('list_new_name')"
       required
       autofocus
     ></v-text-field>
@@ -18,7 +18,7 @@ export default {
   created: function(){
     this.$store.commit({
       type: 'updateTitle',
-      title: 'Nuova lista'
+      title: this.$t('list_new')
     });
   },
   data: function(){
@@ -26,7 +26,7 @@ export default {
       valid: false,
       name: '',
       nameRules: [
-        v => !!v || 'Inserire il nome'
+        v => !!v || this.$t('list_insert_name')
       ],
     }
   },
