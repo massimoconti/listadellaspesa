@@ -5,4 +5,5 @@
 * Shared Lists
 * Fidelity Card
 * Grouped list taken/untaken
-* Localization
+* ~~Localization~~
+* Env variable development UA-140415285-2

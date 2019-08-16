@@ -61,6 +61,11 @@ export default {
         name: this.name
       });
 
+      gtag('event', 'updateList', {
+        'event_category': 'ManageListe',
+        'event_label': this.name
+      });
+
       this.$router.push({ name: 'list_detail', params: { id: this.id } });
     },
     deleteList: function(){
@@ -74,6 +79,11 @@ export default {
       this.$store.commit({
         type: 'notify',
         notification: this.$t('list_delete_notify', [name])
+      });
+
+      gtag('event', 'deleteList', {
+        'event_category': 'ManageListe',
+        'event_label': name
       });
 
       this.$router.push({ name: 'list_index' });

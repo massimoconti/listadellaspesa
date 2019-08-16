@@ -166,6 +166,11 @@ export default {
     addNewEntry: function(){
       this.addItems(this.new_entry)
       this.new_entry = '';
+
+      gtag('event', 'addNewEntry', {
+        'event_category': 'Lista',
+        'event_label': this.new_entry
+      });
     },
     dispatchNotification: function(msg){
       this.$store.commit({
@@ -211,6 +216,10 @@ export default {
         return !!el.taken;
       });
 
+      gtag('event', 'toggleItemTaken', {
+        'event_category': 'Lista',
+      });
+
       if (this.list_items.length === items_taken.length)
         this.celebrate();
     },
@@ -219,12 +228,21 @@ export default {
         type: 'clearItems',
         id: this.id
       });
+
+      gtag('event', 'clearItems', {
+        'event_category': 'Lista'
+      });
     },
     deleteItem: function(item_key, name){
       this.$store.commit({
         type: 'deleteItem',
         id: this.id,
         item_key: item_key
+      });
+
+      gtag('event', 'deleteItem', {
+        'event_category': 'Lista',
+        'event_label': name,
       });
 
       this.dispatchNotification(this.$t('list_item_deleted', [ name ]));
@@ -238,6 +256,11 @@ export default {
       // TODO autostop afeter 4 seconds of no input
       if (!this.voice_recognition)
         return;
+
+      gtag('event', 'Mic', {
+        'event_category': 'Lista',
+        'event_label': 'voiceRecognitionStart'
+      });
 
       this.mic_modal_open = true;
 
@@ -298,6 +321,11 @@ export default {
       if (!this.voice_recognition)
         return;
 
+      gtag('event', 'Mic', {
+        'event_category': 'Lista',
+        'event_label': 'voiceRecognitionStop'
+      });
+
       this.voice_recognition.stop();
     },
     celebrate: function(){
@@ -305,6 +333,10 @@ export default {
         window.navigator.vibrate(400);
 
       this.celebrate_modal_open = true;
+
+      gtag('event', 'Celebrate', {
+        'event_category': 'Lista',
+      });
     },
   },
 }

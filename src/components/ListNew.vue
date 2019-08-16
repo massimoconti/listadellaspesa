@@ -42,6 +42,11 @@ export default {
 
       var last_id = Math.max(...[...this.$store.state.lists.keys()]);
 
+      gtag('event', 'createList', {
+        'event_category': 'ManageListe',
+        'event_label': this.name
+      });
+
       this.$router.push({ name: 'list_detail', params: { id: last_id } });
     }
   }
