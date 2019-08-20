@@ -19,6 +19,10 @@
         <v-list-tile-title>{{ $t('list_deletion') }}</v-list-tile-title>
       </v-list-tile>
 
+      <v-list-tile @click="setListAction('edit')" :disabled="!listHasItems">
+        <v-list-tile-title>{{ $t('list_edit_items') }}</v-list-tile-title>
+      </v-list-tile>
+
       <v-list-tile @click="setListAction('riordina')" :disabled="!listHasItems">
         <v-list-tile-title>{{ $t('list_rearrenge') }}</v-list-tile-title>
       </v-list-tile>

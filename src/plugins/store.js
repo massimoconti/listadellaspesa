@@ -42,6 +42,9 @@ const store = new Vuex.Store({
     deleteItem(state, payload){
       state.lists[payload.id].items.splice(payload.item_key, 1);
     },
+    editItem(state, payload){
+      state.lists[payload.id].items[payload.item_key].name = payload.name;
+    },
     clearItems(state, payload){
       state.lists[payload.id].items = [];
     },

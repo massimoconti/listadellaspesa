@@ -25,8 +25,8 @@ export default {
   mic_blocked: 'Permission to use microphone is blocked',
   mic_denied: 'Permission to use microphone was denied',
   list_settings: 'List settings',
-  list_deletion: 'Items deletion',
-  list_rearrenge: 'Items rearrenge',
+  list_deletion: 'Delete items',
+  list_rearrenge: 'Rearrenge items',
   not_found: 'Page requested not found',
   list_no_name: '[no name]',
   no_lists: 'No lists',
@@ -40,4 +40,7 @@ export default {
   list_delete_notify: 'List \'{0}\' deleted',
   list_index_title: 'Your lists',
   list_create: 'Create new list',
+  list_edit_items: 'Edit items',
+  list_edit_item: 'Edit item',
+  save: 'Save',
 }

@@ -38,6 +38,7 @@
             <transition appear name="fade">
               <v-list-tile-action v-if="!isAction('')">
                 <v-icon @click.stop="deleteItem(index, item.name)" v-if="isAction('elimina')">delete</v-icon>
+                <v-icon @click.stop="editItem(index, item.name)" v-if="isAction('edit')">edit</v-icon>
                 <v-icon class="drag-handle" v-if="isAction('riordina')">drag_handle </v-icon>
               </v-list-tile-action>
             </transition>
@@ -45,6 +46,27 @@
         </transition-group>
       </vuedraggable>
     </v-list>
+
+    <v-dialog v-model="edit_dialog" max-width="400px">
+      <v-form v-model="edit_valid" @submit.prevent="saveEditItem()">
+       <v-card>
+         <v-card-title>Modifica articolo</v-card-title>
+         <v-card-text>
+           <v-text-field
+            v-model="edit_item"
+            :rules="editRules"
+            required
+            ></v-text-field>
+         </v-card-text>
+         <v-card-actions>
+           <v-spacer />
+           <v-btn color="primary" text type="submit">
+             {{ $t('save') }}
+           </v-btn>
+         </v-card-actions>
+       </v-card>
+      </v-form>
+     </v-dialog>
 
     <div id="emptylist-container" v-if="!list_items.length" class="body-1">
       <p class="text-xs-center title grey--text text--darken-1 mt-5">{{ $t('list_empty') }}</p>
@@ -123,6 +145,13 @@ export default {
       mic_status: '',
       mic_substatus: '',
       mic_btn: '',
+      edit_dialog: false,
+      edit_item: '',
+      edit_item_key: '',
+      edit_valid: false,
+      editRules: [
+        v => !!v || this.$t('list_insert_name')
+      ],
     }
   },
   computed: {
@@ -165,12 +194,13 @@ export default {
     },
     addNewEntry: function(){
       this.addItems(this.new_entry)
-      this.new_entry = '';
 
       gtag('event', 'addNewEntry', {
         'event_category': 'Lista',
         'event_label': this.new_entry
       });
+
+      this.new_entry = '';
     },
     dispatchNotification: function(msg){
       this.$store.commit({
@@ -246,6 +276,24 @@ export default {
       });
 
       this.dispatchNotification(this.$t('list_item_deleted', [ name ]));
+    },
+    editItem: function(item_key, name){
+      this.edit_dialog = true;
+      this.edit_item = name;
+      this.edit_item_key = item_key;
+    },
+    saveEditItem: function(){
+      if (!this.edit_valid)
+        return;
+
+      this.edit_dialog = false;
+
+      this.$store.commit({
+        type: 'editItem',
+        id: this.id,
+        item_key: this.edit_item_key,
+        name: this.edit_item
+      })
     },
     setMicStatus:function(t_status, t_substatus, t_btn){
       this.mic_status = t_status ? this.$t(t_status) : '';

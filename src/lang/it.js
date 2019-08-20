@@ -40,4 +40,7 @@ export default {
   list_delete_notify: 'Lista \'{0}\' eliminata',
   list_index_title: 'Le tue liste',
   list_create: 'Crea nuova lista',
+  list_edit_items: 'Modifica articoli',
+  list_edit_item: 'Modifica articolo',
+  save: 'Salva',
 }
