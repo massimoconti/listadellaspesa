@@ -50,11 +50,12 @@
     <v-dialog v-model="edit_dialog" max-width="400px">
       <v-form v-model="edit_valid" @submit.prevent="saveEditItem()">
        <v-card>
-         <v-card-title>Modifica articolo</v-card-title>
+         <v-card-title class="font-weight-medium">Modifica articolo</v-card-title>
          <v-card-text>
            <v-text-field
             v-model="edit_item"
             :rules="editRules"
+            autofocus
             required
             ></v-text-field>
          </v-card-text>
@@ -293,7 +294,12 @@ export default {
         id: this.id,
         item_key: this.edit_item_key,
         name: this.edit_item
-      })
+      });
+
+      gtag('event', 'saveEditItem', {
+        'event_category': 'Lista',
+        'event_label': this.edit_item
+      });
     },
     setMicStatus:function(t_status, t_substatus, t_btn){
       this.mic_status = t_status ? this.$t(t_status) : '';
