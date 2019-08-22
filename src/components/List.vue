@@ -135,7 +135,7 @@ export default {
   },
   mounted: updatedComponent,
   updated: updatedComponent,
-  data: () => {
+  data: function(){
     return {
       new_entry: '',
       count_item_taken: 0,
@@ -150,7 +150,7 @@ export default {
       edit_item_key: '',
       edit_valid: false,
       editRules: [
-        v => !!v || this.$t('list_insert_name')
+        v => !!v || this.$t('list_insert_item_name')
       ],
     }
   },

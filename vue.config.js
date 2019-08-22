@@ -6,5 +6,10 @@ module.exports = {
     msTileColor: '#0C7DAF',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
+    workboxOptions: {
+      importWorkboxFrom: 'local',
+      offlineGoogleAnalytics: true,
+      skipWaiting: true,
+    }
   }
 }
