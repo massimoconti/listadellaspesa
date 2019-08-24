@@ -6,10 +6,10 @@ module.exports = {
     msTileColor: '#0C7DAF',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
+    workboxPluginMode: 'InjectManifest',
     workboxOptions: {
       importWorkboxFrom: 'local',
-      offlineGoogleAnalytics: true,
-      skipWaiting: true,
+      swSrc: './src/service-worker.js',
     }
   }
 }
