@@ -23,19 +23,31 @@ Vue.use(VueRouter)
 
 Vue.config.productionTip = false;
 
-
 const router = new VueRouter({
   routes: [
-    { name: 'list_index', path: '/', component: ListIndex },
+    { name: 'index', path: '/', redirect: to => {
+      if (1 === store.state.lists.length){
+        var first_id = Object.keys(store.state.lists.lists)[0];
+        return { name: 'list_detail', params: { id: first_id } };
+      }
+
+      return { name: 'list_index' };
+    }},
+    { name: 'list_index', path: '/dashboard', component: ListIndex },
     { name: 'list_new', path: '/list/new', component: ListNew },
     { name: 'list_settings', path: '/list/settings/:id', component: ListSettings },
     { name: 'list_detail', path: '/list/:id', components: { default: List, header_icons: ListContextMenu } },
     { name: 'not-found', path: '*', component: NotFound },
   ]
 });
+
 router.beforeEach(function(from, to, next){
   store.dispatch('closeDrawer');
   next();
+});
+
+router.afterEach(( to, from ) => {
+  gtag('config', 'UA-140415285-1', {'page_path': to.path});
 });
 
 new Vue({

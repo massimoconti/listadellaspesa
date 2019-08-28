@@ -26,12 +26,6 @@ import { mapState } from 'vuex'
 export default {
   name: 'list-index',
   created: function(){
-    if (1 === this.lists.length){
-      var first_id = Object.keys(this.lists)[0];
-      this.$router.push({ name: 'list_detail', params: { id: first_id } });
-      return;
-    }
-    
     this.$store.commit({
       type: 'updateTitle',
       title: this.$t('list_index_title')
