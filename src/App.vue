@@ -69,6 +69,22 @@
           </v-list-tile-content>
 
         </v-list-tile>
+
+        <v-divider :inset="true"></v-divider>
+
+        <v-list-tile
+          :ripple="true"
+          @click="pushNotificationToggle"
+        >
+          <v-list-tile-action>
+            <v-icon>notifications</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Abilita notifiche</v-list-tile-title>
+          </v-list-tile-content>
+
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
 
@@ -88,15 +104,19 @@
 <script>
 import NotificationBar from './components/NotificationBar.vue'
 import { mapState, mapActions } from 'vuex'
+import PushNotificationManager from '@/plugins/pushnotification'
 
 export default {
   name: 'app',
+  mixins: [
+    PushNotificationManager
+  ],
   components: {
     NotificationBar
   },
   data: () => {
     return {
-      notification: ''
+      notification: '',
     }
   },
   computed:{
@@ -116,7 +136,9 @@ export default {
       lists: state => state.lists
     })
   },
-  methods: mapActions([ 'toggleDrawer', 'closeDrawer' ])
+  methods: {
+    ...mapActions([ 'toggleDrawer', 'closeDrawer' ])
+  }
 }
 </script>
 
