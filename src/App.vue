@@ -33,7 +33,7 @@
       </v-list>
 
       <v-list two-lines>
-        <v-divider light></v-divider>
+        <v-divider class="mb-3" light></v-divider>
 
         <v-list-tile
           v-for="(list, index) in lists"
