@@ -17,6 +17,24 @@
    <div v-else>
      <p class="text-xs-center mt-3">{{ $t('no_lists') }}</p>
    </div>
+
+   <v-card
+    :flat="true"
+    class="blue-grey lighten-5"
+    >
+    <v-card-text style="height: 300px;"></v-card-text>
+    <v-card-text style="height: 100px; position: relative">
+      <v-btn
+        :to="{ name: 'list_new'}"
+        absolute
+        dark
+        fab
+        top
+        right
+        color="blue"
+      >+</v-btn>
+    </v-card-text>
+  </v-card>
  </v-container>
 </template>
 
