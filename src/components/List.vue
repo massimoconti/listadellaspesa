@@ -388,6 +388,8 @@ export default {
 
       this.celebrate_modal_open = true;
 
+      this.$store.commit('recordCompletedList');
+
       gtag('event', 'Celebrate', {
         'event_category': 'Lista',
       });

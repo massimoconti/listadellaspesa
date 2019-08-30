@@ -4,11 +4,13 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const STORAGE_LISTS_KEY = 'listadellaspesa-v1-lists';
+const STORAGE_USAGE_KEY = 'listadellaspesa-v1-usg';
 
 const store = new Vuex.Store({
   state: {
     title: 'Lista della spesa',
     lists: [],
+    usage: {},
     drawer: null,
     notification: '',
     list_action: ''
@@ -23,6 +25,14 @@ const store = new Vuex.Store({
           name: 'Lista della spesa'
         });
       }
+
+      // usage stats
+      if (localStorage.getItem(STORAGE_USAGE_KEY))
+        state.usage = JSON.parse(localStorage.getItem(STORAGE_USAGE_KEY));
+
+      this.commit({
+        type: 'recordUsage'
+      });
 		},
     updateTitle(state, payload){
       state.title = payload.title;
@@ -65,6 +75,21 @@ const store = new Vuex.Store({
     },
     updateListAction(state, payload){
       state.list_action = payload.action;
+    },
+    recordUsage(state, payload){
+      // first usage ts
+      state.usage.usg_ts_frst = state.usage.usg_ts_frst || Date.now();
+      // last usage ts
+      state.usage.usg_ts_last = Date.now();
+    },
+    recordCompletedList(state, payload){
+      // totale completed list
+      state.usage.cmpltd_tot = state.usage.cmpltd_tot || 0;
+      state.usage.cmpltd_tot++;
+      // last completed list ts
+      state.usage.cmpltd_ts_lst = Date.now();
+      // first completed list ts
+      state.usage.cmpltd_ts_frst = state.usage.cmpltd_ts_frst || Date.now();
     }
   },
   actions: {
@@ -93,6 +118,7 @@ const store = new Vuex.Store({
 // Subscribe to store updates
 store.subscribe((mutation, state) => {
   localStorage.setItem(STORAGE_LISTS_KEY, JSON.stringify(state.lists));
+  localStorage.setItem(STORAGE_USAGE_KEY, JSON.stringify(state.usage));
 });
 
 export default store;
