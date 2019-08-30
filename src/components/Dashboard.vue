@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout row wrap v-if="lists.length" >
-       <v-flex xs12 v-for="(list, index) in lists">
+       <v-flex xs12 v-for="(list, index) in lists" class="mb-3">
          <v-card color="blue lighten-2" class="white--text" :to="{ name: 'list_detail', params: { id: index } }">
            <v-card-title primary-title>
              <div>
@@ -16,24 +16,6 @@
      <div v-else>
        <p class="text-xs-center mt-3">{{ $t('no_lists') }}</p>
      </div>
-
-     <v-card
-      :flat="true"
-      class="blue-grey lighten-5"
-      >
-      <v-card-text style="height: 300px;"></v-card-text>
-      <v-card-text style="height: 100px; position: relative">
-        <v-btn
-          :to="{ name: 'list_new'}"
-          absolute
-          dark
-          fab
-          top
-          right
-          color="blue"
-        >+</v-btn>
-      </v-card-text>
-    </v-card>
   </div>
 </template>
 

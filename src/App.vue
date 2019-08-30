@@ -80,10 +80,11 @@
       </v-container>
     </v-content>
 
+    <router-view name="footer"></router-view>
+
     <NotificationBar></NotificationBar>
   </v-app>
 </template>
-
 
 <script>
 import NotificationBar from './components/NotificationBar.vue'
