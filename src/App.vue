@@ -80,7 +80,9 @@
       </v-container>
     </v-content>
 
-    <router-view name="footer"></router-view>
+    <v-scroll-x-transition>
+      <router-view name="footer"></router-view>
+    </v-scroll-x-transition>
 
     <NotificationBar></NotificationBar>
   </v-app>

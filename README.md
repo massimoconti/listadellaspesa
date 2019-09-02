@@ -11,4 +11,5 @@
 ##Fix
 * Favicon
 * Favicon img auto aggiunte
-* PlusSign transition
+* ~~PlusSign transition~~
+* Icons Webpk

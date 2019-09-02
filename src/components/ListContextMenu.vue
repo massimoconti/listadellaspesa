@@ -1,5 +1,5 @@
 <template>
-  <v-menu offset-y>
+  <v-menu offset-y transition="scroll-y-transition">
     <template v-slot:activator="{ on }">
       <v-btn
         icon
