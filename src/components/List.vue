@@ -1,27 +1,29 @@
 <template>
   <div>
-    <v-textarea
-       solo
-       no-resize
-       single-line
-       background-color="#ffffff"
-       :label="this.$t('list_add')"
-       rows="1"
-       v-model="new_entry"
-       @keyup.enter="addNewEntry"
-       @paste="onPaste"
-       @focus="setListAction('')"
-     >
-     <template v-slot:append>
-       <v-icon
-        @click="voiceRecognitionStart"
-        v-if="voice_recognition"
-        :disabled="!isVoiceRecognitionActive"
-       >mic</v-icon>
-     </template>
-    </v-textarea>
+    <v-toolbar dense id="inputbox">
+      <v-textarea
+         flat
+         solo
+         no-resize
+         single-line
+         :label="this.$t('list_add')"
+         :hide-details="true"
+         rows="1"
+         v-model="new_entry"
+         @keyup.enter="addNewEntry"
+         @paste="onPaste"
+         @focus="setListAction('')"
+       >
+      </v-textarea>
 
-    <v-list v-if="list_items.length" class="elevation-2">
+      <v-icon
+       @click.stop="voiceRecognitionStart"
+       v-if="voice_recognition"
+       :disabled="!isVoiceRecognitionActive"
+      >mic</v-icon>
+    </v-toolbar>
+
+    <v-list v-if="list_items.length" class="elevation-2 mt-4" id="thelist">
       <vuedraggable v-model="list_items" handle=".drag-handle">
         <transition-group appear name="listanim">
           <v-list-tile v-for="(item, index) in list_items" v-bind:key="index">
@@ -70,7 +72,7 @@
      </v-dialog>
 
     <div id="emptylist-container" v-if="!list_items.length" class="body-1">
-      <p class="text-xs-center title grey--text text--darken-1 mt-5">{{ $t('list_empty') }}</p>
+      <p class="text-xs-center title grey--text text--darken-1">{{ $t('list_empty') }}</p>
 
       <div class="emptylist-tip emptylist-text">
         <img src="../assets/arrow.svg" alt="">
@@ -398,17 +400,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .taken {
   text-decoration: line-through;
 }
 
-.v-list {
+#thelist {
   border-radius: 8px;
-}
-
-.v-text-field__details {
-  display: none!important
 }
 
 .sortable-ghost {
@@ -447,6 +445,10 @@ export default {
   color: rgb(236, 242, 245);
   overflow: hidden;
   height: 350px;
+}
+
+#emptylist-container p:first-child {
+  margin-top: 70px
 }
 
 .emptylist-tip {
@@ -515,5 +517,13 @@ export default {
 .listanim-enter, .listanim-leave-to {
   opacity: 0;
   transform: translateY(-30%);
+}
+
+#inputbox {
+  background:#fff;
+}
+
+#inputbox .v-toolbar__content {
+  padding-left:0
 }
 </style>

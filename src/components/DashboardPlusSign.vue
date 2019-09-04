@@ -14,7 +14,6 @@
           top
           right
           color="blue"
-          style="font-size:22px;"
         >+</v-btn>
       </v-card-text>
     </v-card>
@@ -24,7 +23,11 @@
 <style>
 #plus-create-list {
   position:fixed;
-  bottom:10px;
-  right:10px
+  bottom:20px;
+  right:10px;
+}
+
+#plus-create-list .v-btn__content {
+  font-size:25px;
 }
 </style>

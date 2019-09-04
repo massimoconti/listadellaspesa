@@ -39,8 +39,8 @@ export default {
 .notifications {
   display: block;
   position: fixed;
-  background: #000;
-  border-radius: 0.3rem;
+  background: #323232;
+  border-radius: 0.1rem;
   padding: 0.4rem;
   color: #fff;
   box-sizing: border-box;
