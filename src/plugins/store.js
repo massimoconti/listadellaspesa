@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import i18n from '@/plugins/i18n'
 
 Vue.use(Vuex)
 
@@ -8,7 +9,7 @@ const STORAGE_USAGE_KEY = 'listadellaspesa-v1-usg';
 
 const store = new Vuex.Store({
   state: {
-    title: 'Lista della spesa',
+    title: i18n.t('name'),
     lists: [],
     usage: {},
     drawer: null,
@@ -22,7 +23,7 @@ const store = new Vuex.Store({
 			} else {
         this.commit({
           type: 'createList',
-          name: 'Lista della spesa'
+          name: i18n.t('name')
         });
       }
 
