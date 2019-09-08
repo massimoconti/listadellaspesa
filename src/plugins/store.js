@@ -9,7 +9,7 @@ const STORAGE_USAGE_KEY = 'listadellaspesa-v1-usg';
 
 const store = new Vuex.Store({
   state: {
-    title: i18n.t('name'),
+    title: '',
     lists: [],
     usage: {},
     drawer: null,

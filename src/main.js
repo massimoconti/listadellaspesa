@@ -25,6 +25,7 @@ window.dataLayer = window.dataLayer || [];
 window.gtag = function(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', process.env.VUE_APP_GTAG_UA);
+gtag('config', process.env.VUE_APP_GTAG_UA, { 'anonymize_ip': true });
 
 new Vue({
   i18n,
