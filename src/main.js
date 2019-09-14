@@ -34,5 +34,9 @@ new Vue({
   render: h => h(App),
   beforeCreate() {
     this.$store.commit('initialiseStore');
+
+    navigator.serviceWorker.ready.then(function(){
+      navigator.serviceWorker.controller.postMessage(JSON.stringify(this.$store.state.usage));
+    }.bind(this))
   }
 }).$mount('#app')
