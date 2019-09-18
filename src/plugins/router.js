@@ -31,7 +31,7 @@ router.beforeEach(function(from, to, next){
 });
 
 router.afterEach(( to, from ) => {
-  gtag('config', 'UA-140415285-1', {'page_path': to.path});
+  gtag('config', process.env.VUE_APP_GTAG_UA, {'page_path': to.path});
 });
 
 export default router;

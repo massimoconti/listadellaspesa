@@ -85,17 +85,20 @@
     </v-scroll-x-transition>
 
     <NotificationBar></NotificationBar>
+    <RateModal></RateModal>
   </v-app>
 </template>
 
 <script>
 import NotificationBar from './components/NotificationBar.vue'
+import RateModal from './components/RateModal.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'app',
   components: {
-    NotificationBar
+    NotificationBar,
+    RateModal
   },
   data: () => {
     return {

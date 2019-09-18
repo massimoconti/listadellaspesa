@@ -37,6 +37,7 @@ const store = new Vuex.Store({
 		},
     updateTitle(state, payload){
       state.title = payload.title;
+      document.title = payload.title;
     },
     updateListName(state, payload){
       state.lists[payload.id].name = payload.name;
@@ -91,7 +92,18 @@ const store = new Vuex.Store({
       state.usage.cmpltd_ts_lst = Date.now();
       // first completed list ts
       state.usage.cmpltd_ts_frst = state.usage.cmpltd_ts_frst || Date.now();
-    }
+    },
+    recordRateModalShow(state, payload){
+      state.usage.ratemdl_ts = Date.now();
+      state.usage.ratemdl_n = state.usage.ratemdl_n ? state.usage.ratemdl_n+1 : 1;
+    },
+    recordRateModalAccept(state, payload){
+      state.usage.ratemdl_accept_ts = Date.now();
+    },
+    recordRateModalDismiss(state, payload){
+      state.usage.ratemdl_dismiss_ts = Date.now();
+      state.usage.ratemdl_dismiss_n = state.usage.ratemdl_dismiss_n ? state.usage.ratemdl_dismiss_n+1 : 1;
+    },
   },
   actions: {
     openDrawer(){

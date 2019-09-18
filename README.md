@@ -3,7 +3,7 @@
 ##Todo
 
 * SW: caching fonts
-* Richiesta feedback
+* Traduzione Richiesta feedback
 * Push Notification
 * Salvataggio usage stats su db remote
 * Shared Lists
