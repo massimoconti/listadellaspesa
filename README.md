@@ -9,3 +9,5 @@
 * Shared Lists
 * Fidelity Card
 * Grouped list taken/untaken
+* Term Of Service / Privacy policy
+* Gtag track performance: https://developers.google.com/analytics/devguides/collection/gtagjs/user-timings
