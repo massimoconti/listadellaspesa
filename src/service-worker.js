@@ -34,6 +34,7 @@ workbox.routing.registerRoute(
 );
 
 workbox.googleAnalytics.initialize();
+<<<<<<< Updated upstream
 
 /**
  * Push handler
@@ -54,3 +55,5 @@ self.addEventListener('push', function(event) {
     })
   );
 });
+=======
+>>>>>>> Stashed changes

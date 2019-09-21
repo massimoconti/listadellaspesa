@@ -53,7 +53,7 @@
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-divider class="mt-3" :inset="true" v-if="lists.length"></v-divider>
+        <v-divider class="mt-5" :inset="true" v-if="lists.length"></v-divider>
 
         <v-list-tile
           :ripple="true"
@@ -75,13 +75,14 @@
         <v-list-tile
           :ripple="true"
           @click="pushNotificationToggle"
+          v-if="pushNotificationSupported"
         >
           <v-list-tile-action>
-            <v-icon>notifications</v-icon>
+            <v-icon>{{ pushNotificationEnabled ? 'notifications_off' : 'notifications' }}</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>Abilita notifiche</v-list-tile-title>
+            <v-list-tile-title>{{ $t(pushNotificationEnabled ? 'notification_disabled' : 'notification_enabled') }}</v-list-tile-title>
           </v-list-tile-content>
 
         </v-list-tile>

@@ -43,5 +43,7 @@ export default {
   list_edit_items: 'Edit items',
   list_edit_item: 'Edit item',
   save: 'Save',
-  list_insert_item_name: 'Insert item name'
+  list_insert_item_name: 'Insert item name',
+  notification_enabled: 'Enable notifications',
+  notification_disabled: 'Disable notifications'
 }
