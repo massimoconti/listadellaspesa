@@ -1,11 +1,44 @@
+const STORAGE_LISTS_KEY = 'listadellaspesa-v1-lists';
+const STORAGE_USAGE_KEY = 'listadellaspesa-v1-usg';
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import i18n from '@/plugins/i18n'
 
-Vue.use(Vuex)
+async function loadFirestore(){
+  const firebase = await import(/* webpackChunkName: "firebase" */ 'firebase/app')
+  await import(/* webpackChunkName: "firebase" */ 'firebase/firestore')
+  await import(/* webpackChunkName: "firebase" */ 'firebase/auth')
 
-const STORAGE_LISTS_KEY = 'listadellaspesa-v1-lists';
-const STORAGE_USAGE_KEY = 'listadellaspesa-v1-usg';
+  firebase.initializeApp({
+    apiKey: "AIzaSyCv5LYgZq3Hhi_MdcWZ0LUxH-ZJSlVxbG0",
+    authDomain: "listadellaspesa-v2.firebaseapp.com",
+    databaseURL: "https://listadellaspesa-v2.firebaseio.com",
+    projectId: "listadellaspesa-v2",
+    storageBucket: "listadellaspesa-v2.appspot.com",
+    messagingSenderId: "1027938358578",
+    appId: "1:1027938358578:web:38e6bbfa8ca19553c0b32b"
+  });
+
+  firebase.auth().signInAnonymously().catch(function(error) {
+    // Handle Errors here.
+    console.debug(error.code, error.message);
+  });
+
+  firebase.auth().onAuthStateChanged(function(user){
+    // User is signed in.
+    store.commit({
+      type: 'stateChangeUser',
+      user: user,
+    });
+  });
+
+  return firebase.firestore();
+}
+
+const firestoreHasLoaded = loadFirestore()
+
+Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
@@ -14,7 +47,8 @@ const store = new Vuex.Store({
     usage: {},
     drawer: null,
     notification: '',
-    list_action: ''
+    list_action: '',
+    user: {}
   },
   mutations: {
     initialiseStore(state){
@@ -35,6 +69,18 @@ const store = new Vuex.Store({
         type: 'recordUsage'
       });
 		},
+    stateChangeUser(state, payload){
+      state.user = payload.user;
+      /*
+      if (state.user.uid){
+        firestore.collection("collection-lists").doc(state.user.uid)
+          .onSnapshot(doc => {
+            if (doc.data() && doc.data().lists){
+              this.state.lists = doc.data().lists;
+            }
+          });
+      }*/
+    },
     updateTitle(state, payload){
       state.title = payload.title;
       document.title = payload.title;
@@ -132,6 +178,15 @@ const store = new Vuex.Store({
 store.subscribe((mutation, state) => {
   localStorage.setItem(STORAGE_LISTS_KEY, JSON.stringify(state.lists));
   localStorage.setItem(STORAGE_USAGE_KEY, JSON.stringify(state.usage));
+
+  if (state.user && state.user.uid){
+    var uid = state.user.uid;
+
+    firestoreHasLoaded.then(firestore => {
+      firestore.collection("collection-usages").doc(uid).set(state.usage);
+      firestore.collection("collection-lists").doc(uid).set({lists: state.lists});
+    });
+  }
 });
 
 export default store;
