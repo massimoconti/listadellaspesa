@@ -10,15 +10,29 @@ async function loadFirestore(){
   await import(/* webpackChunkName: "firebase" */ 'firebase/firestore')
   await import(/* webpackChunkName: "firebase" */ 'firebase/auth')
 
-  firebase.initializeApp({
-    apiKey: "AIzaSyCv5LYgZq3Hhi_MdcWZ0LUxH-ZJSlVxbG0",
-    authDomain: "listadellaspesa-v2.firebaseapp.com",
-    databaseURL: "https://listadellaspesa-v2.firebaseio.com",
-    projectId: "listadellaspesa-v2",
-    storageBucket: "listadellaspesa-v2.appspot.com",
-    messagingSenderId: "1027938358578",
-    appId: "1:1027938358578:web:38e6bbfa8ca19553c0b32b"
-  });
+  if (process.env.NODE_ENV === 'production') {
+    firebase.initializeApp({
+      apiKey: "AIzaSyCv5LYgZq3Hhi_MdcWZ0LUxH-ZJSlVxbG0",
+      authDomain: "listadellaspesa-v2.firebaseapp.com",
+      databaseURL: "https://listadellaspesa-v2.firebaseio.com",
+      projectId: "listadellaspesa-v2",
+      storageBucket: "listadellaspesa-v2.appspot.com",
+      messagingSenderId: "1027938358578",
+      appId: "1:1027938358578:web:38e6bbfa8ca19553c0b32b"
+    });
+  } else {
+    // SANBOX
+    firebase.initializeApp({
+      apiKey: "AIzaSyCDyavD9wYdnOoiW7eDYbH2cwr-cZx9Ia8",
+      authDomain: "listadellaspesa-sandbox.firebaseapp.com",
+      databaseURL: "https://listadellaspesa-sandbox.firebaseio.com",
+      projectId: "listadellaspesa-sandbox",
+      storageBucket: "",
+      messagingSenderId: "440738185327",
+      appId: "1:440738185327:web:e945aad53e9eda38f8cd9a",
+      measurementId: "G-BPSWZ0V9Z9"
+    });
+  }
 
   firebase.auth().signInAnonymously().catch(function(error) {
     // Handle Errors here.
