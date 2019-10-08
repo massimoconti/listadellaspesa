@@ -26,25 +26,25 @@
     <v-list v-if="list_items.length" class="elevation-2 mt-4" id="thelist">
       <vuedraggable v-model="list_items" handle=".drag-handle">
         <transition-group appear name="listanim">
-          <v-list-tile v-for="(item, index) in list_items" v-bind:key="index">
-            <v-list-tile-action>
+          <v-list-item v-for="(item, index) in list_items" v-bind:key="index">
+            <v-list-item-action class="mr-3">
               <v-checkbox v-model="item.taken" color="grey"  @click.prevent.stop="toggleItemTaken(index)" :hide-details="true" />
-            </v-list-tile-action>
+            </v-list-item-action>
 
-            <v-list-tile-content @click.stop="toggleItemTaken(index)">
-              <v-list-tile-title :class="{ taken: item.taken, 'grey--text': item.taken }">
+            <v-list-item-content @click.stop="toggleItemTaken(index)">
+              <v-list-item-title :class="{ taken: item.taken, 'grey--text': item.taken }">
                 {{ item.name }}
-              </v-list-tile-title>
-            </v-list-tile-content>
+              </v-list-item-title>
+            </v-list-item-content>
 
             <transition appear name="fade">
-              <v-list-tile-action v-if="!isAction('')">
+              <v-list-item-action v-if="!isAction('')">
                 <v-icon @click.stop="deleteItem(index, item.name)" v-if="isAction('elimina')">delete</v-icon>
                 <v-icon @click.stop="editItem(index, item.name)" v-if="isAction('edit')">edit</v-icon>
                 <v-icon class="drag-handle" v-if="isAction('riordina')">drag_handle </v-icon>
-              </v-list-tile-action>
+              </v-list-item-action>
             </transition>
-          </v-list-tile>
+          </v-list-item>
         </transition-group>
       </vuedraggable>
     </v-list>
@@ -52,11 +52,11 @@
     <v-dialog v-model="edit_dialog" max-width="400px">
       <v-form v-model="edit_valid" @submit.prevent="saveEditItem()">
        <v-card>
-         <v-card-title class="font-weight-medium">Modifica articolo</v-card-title>
          <v-card-text>
            <v-text-field
             v-model="edit_item"
             :rules="editRules"
+            :label="this.$t('list_edit_item')"
             autofocus
             required
             ></v-text-field>
@@ -72,7 +72,7 @@
      </v-dialog>
 
     <div id="emptylist-container" v-if="!list_items.length" class="body-1">
-      <p class="text-xs-center title grey--text text--darken-1">{{ $t('list_empty') }}</p>
+      <p class="text-center title grey--text text--darken-1">{{ $t('list_empty') }}</p>
 
       <div class="emptylist-tip emptylist-text">
         <img src="../assets/arrow.svg" alt="">
@@ -90,8 +90,8 @@
 
       <div class="modal-title">{{ $t('list_completed') }}</div>
       <div class="modal-description">
-        <v-btn color="info" @click="(function(){})">{{ $t('close') }}</v-btn>
-        <v-btn color="info" @click="clearItems">{{ $t('list_clear') }}</v-btn>
+        <v-btn class="mr-2" color="info" @click="(function(){})">{{ $t('close') }}</v-btn>
+        <v-btn class="ml-2" color="info" @click="clearItems">{{ $t('list_clear') }}</v-btn>
       </div>
     </ModalWin>
 
@@ -118,17 +118,6 @@ if ('webkitSpeechRecognition' in window){
   recognition.lang = 'it-IT';
 }
 
-function updatedComponent(){
-  if (!this.list){
-    this.$router.push({ name: 'list_index' });
-  }
-
-  this.$store.commit({
-    type: 'updateTitle',
-    title: this.list_name
-  });
-}
-
 export default {
   name: 'list',
   components: {
@@ -136,8 +125,14 @@ export default {
     ModalWin,
     SuccessIconAnimated
   },
-  mounted: updatedComponent,
-  updated: updatedComponent,
+  watch:{
+    $route(to, from){
+      this.updatedComponent();
+    }
+  },
+  mounted: function(){
+    this.updatedComponent();
+  },
   data: function(){
     return {
       new_entry: '',
@@ -184,6 +179,16 @@ export default {
     }
   },
   methods: {
+    updatedComponent(){
+      if (!this.list){
+        this.$router.push({ name: 'list_index' });
+      }
+
+      this.$store.commit({
+        type: 'updateTitle',
+        title: this.list_name
+      });
+    },
     isAction(action){
       return action === this.$store.state.list_action;
     },
@@ -467,6 +472,8 @@ export default {
   padding:0.5rem;
   border-radius: 0.4rem;
   color: #ddd;
+  font-size:.9rem;
+  line-height: 120%;
 }
 
 .emptylist-tip img {

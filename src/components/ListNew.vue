@@ -1,14 +1,18 @@
 <template>
-  <v-form v-model="valid" class="mt-3" @submit.prevent="createList">
-    <v-text-field
-      v-model="name"
-      :counter="50"
-      :rules="nameRules"
-      :label="this.$t('list_new_name')"
-      required
-      autofocus
-    ></v-text-field>
-  </v-form>
+  <v-card color="white">
+    <v-card-text>
+      <v-form v-model="valid" @submit.prevent="createList">
+        <v-text-field
+          v-model="name"
+          :counter="50"
+          :rules="nameRules"
+          :label="this.$t('list_new_name')"
+          required
+          autofocus
+        ></v-text-field>
+      </v-form>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>

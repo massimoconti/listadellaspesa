@@ -1,6 +1,6 @@
 <template>
   <transition name="notifications">
-    <div class="notifications body-1" v-if="msg">
+    <div class="notifications body-2" v-if="msg">
       {{ msg }}
     </div>
   </transition>

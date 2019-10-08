@@ -11,21 +11,21 @@
       </v-btn>
     </template>
     <v-list>
-      <v-list-tile :to="{ name: 'list_settings', params: { id: id } }">
-        <v-list-tile-title>{{ $t('list_settings') }}</v-list-tile-title>
-      </v-list-tile>
+      <v-list-item :to="{ name: 'list_settings', params: { id: id } }">
+        <v-list-item-title>{{ $t('list_settings') }}</v-list-item-title>
+      </v-list-item>
 
-      <v-list-tile @click="setListAction('elimina')" :disabled="!listHasItems">
-        <v-list-tile-title>{{ $t('list_deletion') }}</v-list-tile-title>
-      </v-list-tile>
+      <v-list-item @click="setListAction('elimina')" :disabled="!listHasItems">
+        <v-list-item-title>{{ $t('list_deletion') }}</v-list-item-title>
+      </v-list-item>
 
-      <v-list-tile @click="setListAction('edit')" :disabled="!listHasItems">
-        <v-list-tile-title>{{ $t('list_edit_items') }}</v-list-tile-title>
-      </v-list-tile>
+      <v-list-item @click="setListAction('edit')" :disabled="!listHasItems">
+        <v-list-item-title>{{ $t('list_edit_items') }}</v-list-item-title>
+      </v-list-item>
 
-      <v-list-tile @click="setListAction('riordina')" :disabled="!listHasItems">
-        <v-list-tile-title>{{ $t('list_rearrenge') }}</v-list-tile-title>
-      </v-list-tile>
+      <v-list-item @click="setListAction('riordina')" :disabled="!listHasItems">
+        <v-list-item-title>{{ $t('list_rearrenge') }}</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-menu>
 </template>

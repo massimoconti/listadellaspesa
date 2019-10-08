@@ -8,7 +8,6 @@
       <v-card-text>
         <v-btn
           :to="{ name: 'list_new'}"
-          absolute
           dark
           fab
           top
@@ -23,8 +22,8 @@
 <style>
 #plus-create-list {
   position:fixed;
-  bottom:20px;
-  right:10px;
+  bottom:10px;
+  right:20px;
 }
 
 #plus-create-list .v-btn__content {

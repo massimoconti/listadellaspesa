@@ -1,78 +1,86 @@
 <template>
   <v-app v-cloak>
-    <v-toolbar app dense :fixed="true" color="blue">
-      <v-toolbar-side-icon class="white--text" @click="toggleDrawer"></v-toolbar-side-icon>
-      <v-toolbar-title class="white--text">{{ title }}</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <router-view name="header_icons"></router-view>
-    </v-toolbar>
 
     <v-navigation-drawer
       app
       v-model="drawer"
-      absolute
       temporary
+      fixed
+      width="300px"
     >
-      <v-list class="pa-1" two-lines>
-        <v-list-tile
-          avatar
+      <v-list two-lines class="py-0">
+        <v-list-item
           tag="div"
           :ripple="true"
           :to="{ name: 'list_index' }"
           @click="closeDrawer"
-          active-class=""
           >
-          <v-list-tile-avatar>
+          <v-list-item-avatar>
             <img src="./assets/logo.svg" alt="">
-          </v-list-tile-avatar>
+          </v-list-item-avatar>
 
-          <v-list-tile-content>
-            <v-list-tile-title class="title">{{ $t('name') }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+          <v-list-item-content>
+            <v-list-item-title class="title ma-0 pa-0">{{ $t('name') }}</v-list-item-title>
+            <v-list-item-subtitle class="caption ma-0 pa-0">
+              Versione 1.5.0
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
 
-      <v-list two-lines>
-        <v-divider class="mb-3" light></v-divider>
+      <v-list two-lines class="pt-0">
+        <v-divider light></v-divider>
 
-        <v-list-tile
+        <v-list-item
           v-for="(list, index) in lists"
           :ripple="true"
           :to="{ name: 'list_detail', params: { id: index } }"
           @click="closeDrawer"
           active-class="black--text"
-          class="py-1"
+          class="py-0"
         >
-          <v-list-tile-action>
+          <v-list-item-action>
             <v-icon>shopping_basket</v-icon>
-          </v-list-tile-action>
+          </v-list-item-action>
 
-          <v-list-tile-content>
-            <v-list-tile-title>{{ list.name || '[senza nome]' }}</v-list-tile-title>
-            <v-list-tile-sub-title>{{ $tc('list_num_items', list.items.length) }}</v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
+          <v-list-item-content>
+            <v-list-item-title>{{ list.name || '[senza nome]' }}</v-list-item-title>
+            <v-list-item-subtitle>{{ $tc('list_num_items', list.items.length) }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-divider class="mt-3" :inset="true" v-if="lists.length"></v-divider>
+        <v-divider v-if="lists.length"></v-divider>
 
-        <v-list-tile
+        <v-list-item
           :ripple="true"
           :to="{ name: 'list_new'}"
           @click="closeDrawer"
         >
-          <v-list-tile-action>
+          <v-list-item-action>
             <v-icon>border_color</v-icon>
-          </v-list-tile-action>
+          </v-list-item-action>
 
-          <v-list-tile-content>
-            <v-list-tile-title>{{ $t('list_create') }}</v-list-tile-title>
-          </v-list-tile-content>
+          <v-list-item-content>
+            <v-list-item-title class="subtitle-2">{{ $t('list_create') }}</v-list-item-title>
+          </v-list-item-content>
 
-        </v-list-tile>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
-    <v-content class="pt-5 blue-grey lighten-5">
+    <v-app-bar
+      dark
+      dense
+      :fixed="true"
+      color="blue"
+      >
+      <v-app-bar-nav-icon @click="toggleDrawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <div class="flex-grow-1"></div>
+      <router-view name="header_icons"></router-view>
+    </v-app-bar>
+
+    <v-content class="pt-2 mt-12 px-1 blue-grey lighten-5">
       <v-container fluid>
         <transition name="page" mode="out-in">
           <router-view></router-view>
@@ -85,20 +93,17 @@
     </v-scroll-x-transition>
 
     <NotificationBar></NotificationBar>
-    <RateModal></RateModal>
   </v-app>
 </template>
 
 <script>
 import NotificationBar from './components/NotificationBar.vue'
-import RateModal from './components/RateModal.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'app',
   components: {
-    NotificationBar,
-    RateModal
+    NotificationBar
   },
   data: () => {
     return {

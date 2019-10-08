@@ -1,20 +1,35 @@
 <template>
   <div>
-    <v-form v-model="valid" class="mt-3" @submit.prevent="updateList">
-      <v-text-field
-        v-model="name"
-        :counter="50"
-        :rules="nameRules"
-        :label="$t('list_rename')"
-        required
-      ></v-text-field>
-    </v-form>
+    <v-card color="white" class="mb-6">
+      <v-card-text>
 
-    <p class="subheading mt-5">{{ $t('list_delete') }}</p>
-    <v-btn color="error" :ripple="true" @click="deleteList">
-      <v-icon>delete</v-icon>
-      {{ $t('delete') }}
-    </v-btn>
+        <v-form v-model="valid" @submit.prevent="updateList">
+          <v-text-field
+            v-model="name"
+            :counter="50"
+            :rules="nameRules"
+            :label="$t('list_rename')"
+            required
+          ></v-text-field>
+        </v-form>
+
+      </v-card-text>
+    </v-card>
+
+    <v-card>
+      <v-card-title primary-title>
+        <div class="body-2">
+          {{ $t('list_delete') }}
+        </div>
+      </v-card-title>
+      <v-card-actions>
+        <v-btn color="error" :ripple="true" @click="deleteList">
+          <v-icon>delete</v-icon>
+          {{ $t('delete') }}
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+
   </div>
 </template>
 
