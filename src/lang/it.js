@@ -43,5 +43,6 @@ export default {
   list_edit_items: 'Modifica articoli',
   list_edit_item: 'Modifica articolo',
   save: 'Salva',
-  list_insert_item_name: 'Inserire il nome dell\'articolo'
+  list_insert_item_name: 'Inserire il nome dell\'articolo',
+  share_with: 'Condividi con:',
 }
