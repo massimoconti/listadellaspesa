@@ -22,7 +22,7 @@
           <v-list-item-content>
             <v-list-item-title class="title ma-0 pa-0">{{ $t('name') }}</v-list-item-title>
             <v-list-item-subtitle class="caption ma-0 pa-0">
-              Versione 1.6
+              Versione 1.6.1
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>

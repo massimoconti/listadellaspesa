@@ -103,9 +103,7 @@ export default {
           return el.name.trim();
       }).join("\n");
 
-
-
-      location.href="whatsapp://send?text=" + text
+      location.href="whatsapp://send?text=" + encodeURIComponent(text)
     }
   }
 }
