@@ -17,7 +17,7 @@
               $t("name")
             }}</v-list-item-title>
             <v-list-item-subtitle class="caption ma-0 pa-0">
-              Versione 1.6.1
+              Versione 1.7.0
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>

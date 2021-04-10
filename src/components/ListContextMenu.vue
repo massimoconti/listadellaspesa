@@ -6,8 +6,17 @@
             icon
             class="white--text"
             dark
+            @click="share"
+            v-if="shareApiEnabled"
+          >
+            <v-icon>share</v-icon>
+          </v-btn>
+          <v-btn
+            icon
+            class="white--text"
+            dark
             v-on="on"
-            v-if="isWhatsappInstalled"
+            v-else
           >
             <v-icon>share</v-icon>
           </v-btn>
@@ -60,24 +69,9 @@
 export default {
   name: 'list-context-menu',
   data: function(){
-
-  function goto(url, fallback) {
-      var script = document.createElement('script');
-
-      script.onload = function() {
-          document.location = url;
-      }
-      script.onerror = function() {
-          document.location = fallback;
-      }
-      script.setAttribute('src', url);
-
-      document.getElementsByTagName('head')[0].appendChild(script);
-  }
-
     return {
-        whatsappSupported: false
-    }
+      
+    };
   },
   computed: {
     id: function(){
@@ -89,6 +83,9 @@ export default {
     },
     listHasItems: function(){
       return !!this.list.items && !!this.list.items.length
+    },
+    shareApiEnabled: function(){
+      return ('share' in navigator);
     }
   },
   methods: {
@@ -98,12 +95,19 @@ export default {
         action: action
       })
     },
-    shareWhatapp: function(){
-        var text = this.list.items.map(function(el){
-          return el.name.trim();
+    getSharableListContent: function(){
+      return this.list.items.map(function(el){
+        return el.name.trim();
       }).join("\n");
-
-      location.href="whatsapp://send?text=" + encodeURIComponent(text)
+    },
+    share: function(){
+      window.navigator.share({
+        title: this.list.name,
+        text: this.getSharableListContent()
+      });
+    },
+    shareWhatapp: function(){
+      location.href="whatsapp://send?text=" + encodeURIComponent(this.getSharableListContent())
     }
   }
 }
