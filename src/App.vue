@@ -1,26 +1,21 @@
 <template>
   <v-app v-cloak>
-
-    <v-navigation-drawer
-      app
-      v-model="drawer"
-      temporary
-      fixed
-      width="300px"
-    >
+    <v-navigation-drawer app v-model="drawer" temporary fixed width="300px">
       <v-list two-lines class="py-0">
         <v-list-item
           tag="div"
           :ripple="true"
           :to="{ name: 'list_index' }"
           @click="closeDrawer"
-          >
+        >
           <v-list-item-avatar>
-            <img src="./assets/logo.svg" alt="">
+            <img src="./assets/logo.svg" alt="" />
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title class="title ma-0 pa-0">{{ $t('name') }}</v-list-item-title>
+            <v-list-item-title class="title ma-0 pa-0">{{
+              $t("name")
+            }}</v-list-item-title>
             <v-list-item-subtitle class="caption ma-0 pa-0">
               Versione 1.6.1
             </v-list-item-subtitle>
@@ -44,8 +39,12 @@
           </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-item-title>{{ list.name || '[senza nome]' }}</v-list-item-title>
-            <v-list-item-subtitle>{{ $tc('list_num_items', list.items.length) }}</v-list-item-subtitle>
+            <v-list-item-title>{{
+              list.name || "[senza nome]"
+            }}</v-list-item-title>
+            <v-list-item-subtitle>{{
+              $tc("list_num_items", list.items.length)
+            }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -53,7 +52,7 @@
 
         <v-list-item
           :ripple="true"
-          :to="{ name: 'list_new'}"
+          :to="{ name: 'list_new' }"
           @click="closeDrawer"
         >
           <v-list-item-action>
@@ -61,32 +60,28 @@
           </v-list-item-action>
 
           <v-list-item-content>
-            <v-list-item-title class="subtitle-2">{{ $t('list_create') }}</v-list-item-title>
+            <v-list-item-title class="subtitle-2">{{
+              $t("list_create")
+            }}</v-list-item-title>
           </v-list-item-content>
-
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar
-      dark
-      dense
-      :fixed="true"
-      color="blue"
-      >
+    <v-app-bar dark dense :fixed="true" color="blue">
       <v-app-bar-nav-icon @click="toggleDrawer"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <div class="flex-grow-1"></div>
       <router-view name="header_icons"></router-view>
     </v-app-bar>
 
-    <v-content class="pt-2 mt-12 px-1 blue-grey lighten-5">
-      <v-container fluid>
+    <v-main class="pt-2 mt-12 px-1 blue-grey lighten-5">
+      <v-container>
         <transition name="page" mode="out-in">
           <router-view></router-view>
         </transition>
       </v-container>
-    </v-content>
+    </v-main>
 
     <v-scroll-x-transition>
       <router-view name="footer"></router-view>
@@ -97,51 +92,52 @@
 </template>
 
 <script>
-import NotificationBar from './components/NotificationBar.vue'
-import { mapState, mapActions } from 'vuex'
+import NotificationBar from "./components/NotificationBar.vue";
+import { mapState, mapActions } from "vuex";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    NotificationBar
+    NotificationBar,
   },
   data: () => {
     return {
-      notification: ''
-    }
+      notification: "",
+    };
   },
-  computed:{
+  computed: {
     drawer: {
       get: function () {
-        return this.$store.state.drawer
+        return this.$store.state.drawer;
       },
       set: function (newValue) {
-        if (newValue)
-          this.$store.dispatch('openDrawer')
-        else
-          this.$store.dispatch('closeDrawer')
-      }
+        if (newValue) this.$store.dispatch("openDrawer");
+        else this.$store.dispatch("closeDrawer");
+      },
     },
     ...mapState({
-      title: state => state.title,
-      lists: state => state.lists
-    })
+      title: (state) => state.title,
+      lists: (state) => state.lists,
+    }),
   },
-  methods: mapActions([ 'toggleDrawer', 'closeDrawer' ])
-}
+  methods: mapActions(["toggleDrawer", "closeDrawer"]),
+};
 </script>
 
 <style>
 [v-cloak] {
-  display: none
+  display: none;
 }
-html, body {
-  font:400 16px 'Roboto', sans-serif;
+html,
+body {
+  font: 400 16px "Roboto", sans-serif;
 }
-.page-enter-active, .page-leave-active {
-  transition: opacity .3s, transform .3s;
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s, transform 0.3s;
 }
-.page-enter, .page-leave-to {
+.page-enter,
+.page-leave-to {
   opacity: 0;
   transform: translateX(-30%);
 }
