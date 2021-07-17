@@ -45,4 +45,5 @@ export default {
   save: 'Save',
   list_insert_item_name: 'Insert item name',
   share_with: 'Share with:',
+  list_share_target_title: 'Import to shopping list',
 }

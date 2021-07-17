@@ -1,7 +1,7 @@
 <template>
   <div class="mx-6 mt-3">
     <v-layout row wrap v-if="lists.length" >
-       <v-flex xs12 v-for="(list, index) in lists" class="mb-4">
+       <v-flex xs12 v-for="(list, index) in lists" :key="index" class="mb-4">
          <v-card color="blue lighten-2" class="white--text" :to="{ name: 'list_detail', params: { id: index } }">
            <v-card-title class="font-weight-bold">
              {{ list.name || $('list_no_name') }}

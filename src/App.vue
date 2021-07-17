@@ -17,7 +17,8 @@
               $t("name")
             }}</v-list-item-title>
             <v-list-item-subtitle class="caption ma-0 pa-0">
-              Versione 1.7.0
+              Versione 1.7.1
+              
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -28,6 +29,7 @@
 
         <v-list-item
           v-for="(list, index) in lists"
+          :key="index"
           :ripple="true"
           :to="{ name: 'list_detail', params: { id: index } }"
           @click="closeDrawer"

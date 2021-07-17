@@ -45,4 +45,5 @@ export default {
   save: 'Salva',
   list_insert_item_name: 'Inserire il nome dell\'articolo',
   share_with: 'Condividi con:',
+  list_share_target_title: 'Importa lista della spesa',
 }

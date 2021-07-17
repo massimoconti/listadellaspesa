@@ -78,8 +78,11 @@ export default {
       return this.$route.params.id;
     },
     list: function(){
-      if (this.$store.state.lists[this.id])
+      if (this.$store.state.lists[this.id]) {
         return this.$store.state.lists[this.id];
+      }
+
+      return [];
     },
     listHasItems: function(){
       return !!this.list.items && !!this.list.items.length

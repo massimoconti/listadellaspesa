@@ -11,6 +11,7 @@ import ListNew from '@/components/ListNew.vue'
 import ListSettings from '@/components/ListSettings.vue'
 import List from '@/components/List.vue'
 import ListContextMenu from '@/components/ListContextMenu.vue'
+import ShareTarget from '@/components/ShareTarget.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,7 @@ const router = new VueRouter({
     { name: 'list_new', path: '/list/new', component: ListNew },
     { name: 'list_settings', path: '/list/settings/:id', component: ListSettings },
     { name: 'list_detail', path: '/list/:id', components: { default: List, header_icons: ListContextMenu }},
+    { name: 'share_target', path: '/share_target', components: { default: ShareTarget }},
     { name: 'not-found', path: '*', component: NotFound },
   ]
 });
@@ -30,8 +32,8 @@ router.beforeEach(function(from, to, next){
   next();
 });
 
-router.afterEach(( to, from ) => {
-  gtag('config', process.env.VUE_APP_GTAG_UA, {'page_path': to.path});
+router.afterEach(( to ) => {
+  window.gtag('config', process.env.VUE_APP_GTAG_UA, {'page_path': to.path});
 });
 
 export default router;

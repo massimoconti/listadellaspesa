@@ -45,4 +45,5 @@ export default {
   save: 'Guarda',
   list_insert_item_name: 'Introduzca el nombre del artículo',
   share_with: 'Compartire con:',
+  list_share_target_title: 'Importar en lista de compras',
 }
