@@ -22,7 +22,7 @@ const router = new VueRouter({
     { name: 'list_new', path: '/list/new', component: ListNew },
     { name: 'list_settings', path: '/list/settings/:id', component: ListSettings },
     { name: 'list_detail', path: '/list/:id', components: { default: List, header_icons: ListContextMenu }},
-    { name: 'share_target', path: '/share_target', components: { default: ShareTarget }},
+    { name: 'share_target', path: '/share-target', components: { default: ShareTarget }},
     { name: 'not-found', path: '*', component: NotFound },
   ]
 });
