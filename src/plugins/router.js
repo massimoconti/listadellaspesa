@@ -16,6 +16,7 @@ import ShareTarget from '@/components/ShareTarget.vue'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
     { name: 'index', path: '/', component: Index },
     { name: 'list_index', path: '/dashboard', components: { default: Dashboard, footer: DashboardPlusSign }},

@@ -108,6 +108,7 @@
 import vuedraggable from 'vuedraggable'
 import ModalWin from './ModalWin.vue'
 import SuccessIconAnimated from './SuccessIconAnimated.vue'
+import splitItems from '@/plugins/splitItems'
 
 var recognition = null;
 
@@ -217,9 +218,7 @@ export default {
       });
     },
     addItems: function(voices){
-      var vocal_separator = this.$t('list_vocal_separator');
-      var regexp = new RegExp("\n|\\s"+ vocal_separator +"\\s");
-      var entries = voices.split(regexp).filter(function(voice){ return !!voice });
+      const entries = splitItems(this.$t('list_vocal_separator'), voices);
 
       entries.forEach(function(item){
         this.$store.commit({
